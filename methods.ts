@@ -17,6 +17,11 @@ const setInitialState = (initialState = {}) => {
 }
 
 /**
+ * X Clear State
+ */
+const xClearState = () => setStateForKey(null, 'xClearState')
+
+/**
  * X Set State
  * @param {object} state 
  */
@@ -76,4 +81,8 @@ const setStateForKey = (state: any, key: string) => {
  */
 const connect = (WrappedComponent) => (connect_(({ Khtwah }) => Khtwah)(WrappedComponent));
 
-export { connect, xSetState, setStateForKey, getStateForKey, setInitialState }
+export {
+    connect, xSetState, xClearState,
+    setStateForKey, getStateForKey,
+    setInitialState
+}

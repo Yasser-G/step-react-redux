@@ -6,6 +6,7 @@ const smart_reducer = (state = {}, action) => {
     const { type: key, payload } = action
 
     if (key.includes('/')) { return state }
+    if (key === 'xClearState') { return {} }
 
     if (key.includes('.')) {
         const keySplitter = key.split('.', 2)
