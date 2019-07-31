@@ -6,13 +6,13 @@ const smart_reducer = (state = {}, action) => {
     const { type: key, payload } = action
 
     if (key.includes('/')) { return state }
-    if (key === 'xClearState') { return {} }
+    if (key === 'xResetState') { return {} }
 
     if (key.includes('.')) {
         const keySplitter = key.split('.', 2)
         const mainKey = keySplitter[0]
         const subKey = keySplitter[1]
-        console.log(`Key "${mainKey}.${subKey}"`, payload)
+        console.log(`StepReactRedux.${mainKey}.${subKey}`, payload)
         return {
             ...state,
             [mainKey]: {
@@ -21,7 +21,7 @@ const smart_reducer = (state = {}, action) => {
             }
         }
     } else {
-        console.log(`Key "${key}"`, payload)
+        console.log(`StepReactRedux.${key}`, payload)
         return { ...state, [key]: payload }
     }
 }

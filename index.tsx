@@ -7,10 +7,9 @@ export * from './methods'
 /** 
  * Step Provider
  * @example
- * // Render Root component
- * <RootProvider loading={<ActivityIndicator />}>
+ * <Provider loading={<ActivityIndicator />}>
  *   <NavigationContainer />
- * </RootProvider>
+ * </Provider>
 */
 const Provider = ({ children, loading }) => (
     <ProviderX store={RootStore}>
