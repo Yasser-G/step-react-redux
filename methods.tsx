@@ -1,12 +1,14 @@
-import { connect as connect_ } from 'react-redux'
+import { connect as connectX } from 'react-redux'
 import { RootStore } from "./config";
 
 /**
  * State Initializer
+ * @deprecated user xSetState instead
  * @example
  * // Top index File before AppRegistry
  * const initialState = { user: { data: {}, loggedIn: false } }
- * setInitialState(initialState)
+ * // setInitialState(initialState)
+ * xSetState(initialState)
  * AppRegistry.registerComponent(appName, () => App);
  * @param {object} initialState 
  */
@@ -23,7 +25,7 @@ const xResetState = () => setStateForKey(null, 'xResetState')
 const xSetState = (state: object) => {
     if (typeof state == 'object') {
         Object.keys(state).forEach((key) => setStateForKey(state[key], key))
-    } else { throw Error('Provided argument is not an object') }
+    } else { throw Error('Provided state is not an object') }
 }
 
 /**
@@ -43,9 +45,9 @@ const getStateForKey = (key: string) => {
         const subKey = keySplitter[1]
         return getSubstateForKeys(mainKey, subKey)
     } else {
-        const currentState = RootStore.getState()['Khtwah']
-        if (key in currentState) {
-            return currentState[key]
+        const Khtwah = RootStore.getState()['Khtwah']
+        if (key in Khtwah) {
+            return Khtwah[key]
         } else {
             console.log(`StepReactRedux.${key} not found.`)
             return null
@@ -71,19 +73,41 @@ const setStateForKey = (state: any, key: string) => {
 }
 
 /**
- * React Component Connector HOC
- * @deprecated Use xConnect instead
+ * React Component Connector 
+ * @param WrappedComponent Class Component 
+ * @param {Array<string>} requiredKeys Array Of required keys to be connected.
  */
-const connect = (WrappedComponent) => (connect_(({ Khtwah }) => Khtwah)(WrappedComponent));
-/**
- *  React Component Connector HOC
- * @param WrappedComponent React Class Component
- */
-const xConnect = connect
+const connect = (WrappedComponent, requiredKeys: Array<string> = []) => {
+    if (typeof WrappedComponent == 'undefined') {
+        throw Error("WrappedComponent is required")
+    }
+    const errorTemplate = (reason: string) => `StepReactRedux.connect\nFailed to connect "${WrappedComponent.name}"\nReason: ${reason}`
+    if (!Array.isArray(requiredKeys)) {
+        throw Error(errorTemplate("required keys is not an Array"))
+    }
+    const allStrings = requiredKeys.every((key) => typeof key == 'string')
+    if (!allStrings) {
+        throw Error(errorTemplate("all required keys should be strings"))
+    }
+    console.warn('allStrings', allStrings)
+    const mstp = ({ Khtwah }) => {
+        if (requiredKeys.length == 0) return Khtwah
+        const propsToConnect = {}
+        requiredKeys.forEach((key) => {
+            if (key in Khtwah) { propsToConnect[key] = Khtwah[key] } else {
+                throw Error(errorTemplate(`required key "${key}" not found`))
+            }
+        })
+        return propsToConnect
+    }
+    return connectX(mstp)(WrappedComponent)
+};
+
 
 export {
-    connect, xConnect,
-    xSetState, xResetState,
-    setStateForKey, getStateForKey,
-    setInitialState
+    connect, xSetState,
+    getStateForKey, xResetState,
+
+    // Depreacted
+    setStateForKey, setInitialState
 }
