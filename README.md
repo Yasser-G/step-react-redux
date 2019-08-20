@@ -41,14 +41,14 @@ loading: JSX.Element?
 ```
 ######Usage
 ```js
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from "react"
+import ReactDOM from "react-dom"
 
-import { Provider } from 'step-react-redux'
+import { Provider } from "step-react-redux"
 
-import App from './App'
+import App from "./App"
 
-const rootElement = document.getElementById('root')
+const rootElement = document.getElementById("root")
 
 const myInitialState = { /* your initial state */ }
 /*
@@ -83,8 +83,8 @@ requiredKeys: string[]?
 ######Usage
  
 ```ts
-import React from 'react
-import { connect } from 'step-react-redux'
+import React from "react"
+import { connect } from "step-react-redux"
 
 class UserPage extend React.Component {
   // Your Component goes here
@@ -98,7 +98,7 @@ export default connect(UserPage)
  NOTE: Make sure that your requiredKeys values are already initiated.
 */ 
 
-export default connect(UserPage, ['user', 'someKey', 'anotherKey'])
+export default connect(UserPage, ["user", "someKey", "anotherKey"])
 ```
 
 
@@ -114,12 +114,12 @@ state: object
 ######Usage
 
 ```ts
-import { xSetState } from 'step-react-redux'
+import { xSetState } from "step-react-redux"
 
 // Anywhere in your code
 
-xSetState({ user: { id: 1, name: 'Some Name' } })
-// console logs => StepReactRedux.user, { id: 1, name: 'Some Name' }
+xSetState({ user: { id: 1, name: "Some Name" } })
+// console logs => StepReactRedux.user, { id: 1, name: "Some Name" }
 // Now all your connected components will have "user" prop
 
 
@@ -131,7 +131,7 @@ async getMyData(){
 
     try {
 
-      const response = await fetch('http://www.myServer.com/api/myData')
+      const response = await fetch("http://www.myServer.com/api/myData")
       const responseJson = await response.json()
       xSetState({ isFetching: false, myData: responseJson  })
 
@@ -159,23 +159,23 @@ state: object
 ######Usage
 
 ```ts
-import { setStateForKey } from 'step-react-redux'
+import { setStateForKey } from "step-react-redux"
 
 // Similar to xSetState
 // plus it can be used to set deep state
 
-setStateForKey('user', { id: 1, name: 'Some Name' })
+setStateForKey("user", { id: 1, name: "Some Name" })
 
-// console logs => StepReactRedux.user, { id: 1, name: 'Some Name' }
+// console logs => StepReactRedux.user, { id: 1, name: "Some Name" }
 // Now all your connected components will have "user" prop
 
 // Usage to set deep state
 
-setStateForKey('user.name', 'New Name' )
+setStateForKey("user.name", "New Name" )
 
-// console logs => StepReactRedux.user.name, 'New Name'
+// console logs => StepReactRedux.user.name, "New Name"
 
-setStateForKey('user.name', 'New Name' )
+setStateForKey("user.name", "New Name" )
 
 // Remeber that You can use setStateForKey ANYWHERE!
 ```
@@ -193,23 +193,23 @@ key: string
 ######Usage
 
 ```ts
-import { getStateForKey } from 'step-react-redux'
+import { getStateForKey } from "step-react-redux"
 
 // Similar to setStateForKey
 // but it can be used to get state and deep state
 
-const userData = getStateForKey('user') 
-console.log(userData) // => { id: 1, name: 'Some Name' }
+const userData = getStateForKey("user") 
+console.log(userData) // => { id: 1, name: "Some Name" }
 
-const userName = getStateForKey('user.name') 
-console.log(userName) // => 'Some Name'
+const userName = getStateForKey("user.name") 
+console.log(userName) // => "Some Name"
 
 // getting state for unknown key will return null
-const someValue = getStateForKey('someKey') 
+const someValue = getStateForKey("someKey") 
 // console logs => StepReactRedux.someKey not found.
 console.log(someValue) // => null
 
-const anotherValue = getStateForKey('anotherKey.subKey') 
+const anotherValue = getStateForKey("anotherKey.subKey") 
 // console logs => StepReactRedux.anotherKey.subKey not found.
 console.log(anotherValue) // => null
 
