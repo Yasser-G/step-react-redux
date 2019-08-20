@@ -40,7 +40,7 @@ initialState: object?
 loading: JSX.Element?
 ```
 ######Usage
-```ts
+```js
 import React from 'react'
 import ReactDOM from 'react-dom'
 
