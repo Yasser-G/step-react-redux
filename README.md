@@ -1,8 +1,8 @@
-#Step-React-Redux 
+
+# Step-React-Redux 
 ![npm][npmDownloads] ![npm][npmLicense] ![npm][npmVersion]
 
-###Implement React-Redux into your app in just One Step!
-
+### Implement React-Redux into your app in just One Step!
 
 - No Store configuration needed!
 - No MiddleWares needed, no more dispatch complications.
@@ -19,7 +19,7 @@
 
 
 
-##Instalation 
+## Instalation 
 
 
 `npm i step-react-redux`  **- OR -**  `yarn add step-react-redux`
@@ -31,15 +31,15 @@
 
 
 
-##Usage
+## Usage
 
-###**Provider**
-######Props
+### **Provider**
+###### Props
 ```ts
 initialState: object?
 loading: JSX.Element?
 ```
-######Usage
+###### Usage
 ```js
 import React from "react"
 import ReactDOM from "react-dom"
@@ -74,13 +74,13 @@ ReactDOM.render(
 
 
 
-###**connect**
-######Arguments
+### **connect**
+###### Arguments
 ```ts
 WrappedComponent: Component
 requiredKeys: string[]?
 ```
-######Usage
+###### Usage
  
 ```ts
 import React from "react"
@@ -106,12 +106,12 @@ export default connect(UserPage, ["user", "someKey", "anotherKey"])
 
 
 
-###**xSetState**
-######Arguments
+### **xSetState**
+###### Arguments
 ```ts
 state: object
 ```
-######Usage
+###### Usage
 
 ```ts
 import { xSetState } from "step-react-redux"
@@ -150,13 +150,13 @@ async getMyData(){
 ---
 
 
-###**setStateForKey**
-######Arguments
+### **setStateForKey**
+###### Arguments
 ```ts
 key: string
 state: object
 ```
-######Usage
+###### Usage
 
 ```ts
 import { setStateForKey } from "step-react-redux"
@@ -185,12 +185,12 @@ setStateForKey("user.name", "New Name" )
 ---
 
 
-###**getStateForKey**
-######Arguments
+### **getStateForKey**
+###### Arguments
 ```ts
 key: string
 ```
-######Usage
+###### Usage
 
 ```ts
 import { getStateForKey } from "step-react-redux"
