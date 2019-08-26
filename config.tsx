@@ -26,8 +26,8 @@ const smart_reducer = (state = {}, action) => {
     }
 }
 
-const reducers = combineReducers({ Khtwah: smart_reducer })
-const persistConfig = { key: 'Khtwah', storage, whitelist: ['Khtwah'] }
+const reducers = combineReducers({ Step: smart_reducer })
+const persistConfig = { key: 'Step', storage, whitelist: ['Step'] }
 const persistedReducer = persistReducer(persistConfig, reducers)
 export const RootStore = createStore(persistedReducer)
 export const AppPersistor = persistStore(RootStore)

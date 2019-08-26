@@ -41,9 +41,9 @@ const getStateForKey = (key: string) => {
         const subKey = keySplitter[1]
         return getSubstateForKeys(mainKey, subKey)
     } else {
-        const Khtwah = RootStore.getState()['Khtwah']
-        if (key in Khtwah) {
-            return Khtwah[key]
+        const Step = RootStore.getState()['Step']
+        if (key in Step) {
+            return Step[key]
         } else {
             console.log(`StepReactRedux.${key} not found.`)
             return null
@@ -86,17 +86,17 @@ const connect = (WrappedComponent, requiredKeys: Array<string> = []) => {
     if (!allStrings) {
         throw Error(errorTemplate(errors.requiredKeysStrings))
     }
-    const mStep = ({ Khtwah }) => {
+    const mStep = ({ Step }) => {
         const propsToConnect = {}
         if (requiredKeys.length == 0) {
-            Object.keys(Khtwah).forEach((key) => {
+            Object.keys(Step).forEach((key) => {
                 if (key === 'didInit') return
-                propsToConnect[key] = Khtwah[key]
+                propsToConnect[key] = Step[key]
             })
             return propsToConnect
         }
         requiredKeys.forEach((key) => {
-            if (key in Khtwah) { propsToConnect[key] = Khtwah[key] } else {
+            if (key in Step) { propsToConnect[key] = Step[key] } else {
                 throw Error(errorTemplate(errors.requiredKeyNF(key)))
             }
         })

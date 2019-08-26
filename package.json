@@ -1,6 +1,6 @@
 {
   "name": "step-react-redux",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "Implement React-Redux into your app in just One Step!",
   "main": "index.tsx",
   "dependencies": {
@@ -20,5 +20,5 @@
     "name": "Yasser-G",
     "email": "Yas@Keemail.me"
   },
-  "license": "Private"
+  "license": "MIT"
 }
