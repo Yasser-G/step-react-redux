@@ -1,6 +1,6 @@
 
 # Step-React-Redux 
-![npm][npmDownloads] ![npm][npmLicense] ![npm][npmVersion]
+![npm][npmDownloads] ![PRsBadge] ![npm][npmLicense] ![npm][npmVersion]
 
 ### Implement React-Redux into your app in just One Step!
 
@@ -221,3 +221,4 @@ console.log(anotherValue) // => null
 [npmDownloads]: <https://img.shields.io/npm/dt/step-react-redux?label=Installs&logo=npm&style=plastic>
 [npmLicense]: <https://img.shields.io/npm/l/step-react-redux?label=License&style=plastic>
 [npmVersion]: <https://img.shields.io/npm/v/step-react-redux?label=Latest%20Version&style=plastic>
+[PRsBadge]: <https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=plastic>
