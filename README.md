@@ -40,7 +40,8 @@ initialState: object?
 loading: JSX.Element?
 ```
 ###### Usage
-```js
+React
+```ts
 import React from "react"
 import ReactDOM from "react-dom"
 
@@ -67,7 +68,29 @@ ReactDOM.render(
   rootElement
 )
 ```
+React Native
+```ts
+import React from "react"
+import { Provider } from "step-react-redux"
+import AppContainer from "../navigation" // Path to Root Navigation
 
+
+const myInitialState = { /* your initial state */ }
+/*
+ Important Note: state will initialize for first time only,
+ then you have to use xSetState or setStateForKey to change it,
+ If you want to reinitialize state, you have to call xResetState once.
+*/
+
+export default ()=> (
+  <Provider 
+   initialState={myInitialState} 
+   loading={/* your loading UI*/}
+  >
+    <AppContainer />
+  </Provider>
+)
+```
 
 
 ---
