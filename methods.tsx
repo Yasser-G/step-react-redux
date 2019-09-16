@@ -7,7 +7,7 @@ const errors = {
     connectWrapped: "WrappedComponent is required",
     requiredKeysArray: "required keys is not an Array",
     requiredKeysStrings: "all required keys should be strings",
-    requiredKeyNF: (key: string)=> `required key "${key}" not found`,
+    requiredKeyNF: (key: string) => `required key "${key}" not found`,
 }
 
 /**
@@ -76,12 +76,11 @@ const connect = (WrappedComponent, requiredKeys: Array<string> = []) => {
 
     if (typeof WrappedComponent == 'undefined') { throw Error(errors.connectWrapped) }
 
-    const errorTemplate = (reason: string) => {
-        return `StepReactRedux.connect\nFailed to connect "${WrappedComponent.name}"\nReason: ${reason}`
-    }
-    if (!Array.isArray(requiredKeys)) {
-        throw Error(errorTemplate(errors.requiredKeysArray))
-    }
+    const errorTemplate = (reason: string) =>
+        `StepReactRedux.connect\nFailed to connect "${WrappedComponent.name}"\nReason: ${reason}`
+
+    if (!Array.isArray(requiredKeys)) { throw Error(errorTemplate(errors.requiredKeysArray)) }
+
     const allStrings = requiredKeys.every((key) => typeof key == 'string')
     if (!allStrings) {
         throw Error(errorTemplate(errors.requiredKeysStrings))
@@ -107,7 +106,7 @@ const connect = (WrappedComponent, requiredKeys: Array<string> = []) => {
 
 
 export {
-    connect, xSetState,
-    getStateForKey, xResetState,
-
+    connect,
+    xSetState, xResetState,
+    setStateForKey, getStateForKey,
 }
