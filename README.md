@@ -1,6 +1,6 @@
 
 # Step-React-Redux 
-![npm][npmDownloads] ![npm][npmLicense] ![npm][npmVersion]
+![npm][npmDownloads] ![PRsBadge] ![npm][npmLicense] ![npm][npmVersion]
 
 ### Implement React-Redux into your app in just One Step!
 
@@ -40,7 +40,8 @@ initialState: object?
 loading: JSX.Element?
 ```
 ###### Usage
-```js
+React
+```ts
 import React from "react"
 import ReactDOM from "react-dom"
 
@@ -67,7 +68,29 @@ ReactDOM.render(
   rootElement
 )
 ```
+React Native
+```ts
+import React from "react"
+import { Provider } from "step-react-redux"
+import AppContainer from "../navigation" // Path to Root Navigation
 
+
+const myInitialState = { /* your initial state */ }
+/*
+ Important Note: state will initialize for first time only,
+ then you have to use xSetState or setStateForKey to change it,
+ If you want to reinitialize state, you have to call xResetState once.
+*/
+
+export default ()=> (
+  <Provider 
+   initialState={myInitialState} 
+   loading={/* your loading UI*/}
+  >
+    <AppContainer />
+  </Provider>
+)
+```
 
 
 ---
@@ -221,3 +244,4 @@ console.log(anotherValue) // => null
 [npmDownloads]: <https://img.shields.io/npm/dt/step-react-redux?label=Installs&logo=npm&style=plastic>
 [npmLicense]: <https://img.shields.io/npm/l/step-react-redux?label=License&style=plastic>
 [npmVersion]: <https://img.shields.io/npm/v/step-react-redux?label=Latest%20Version&style=plastic>
+[PRsBadge]: <https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=plastic>
