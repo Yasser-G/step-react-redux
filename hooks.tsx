@@ -1,6 +1,6 @@
 import { useSelector, useStore } from 'react-redux'
 
-const useStepSubState = (mainKey, subKey) => {
+const useStepSub2State = (mainKey, subKey) => {
     const mainState = useStepState(mainKey)
     if ((mainState) && (subKey in mainState)) {
         return mainState[subKey]
@@ -10,14 +10,64 @@ const useStepSubState = (mainKey, subKey) => {
     }
 }
 
+const useStepSub3State = (mainKey, subKey, subsubKey) => {
+    const subState = useStepSub2State(mainKey, subKey)
+    if ((subState) && (subsubKey in subState)) {
+        return subState[subsubKey]
+    } else {
+        console.log(`StepReactRedux.${mainKey}.${subKey}.${subsubKey} not found.`)
+        return null
+    }
+}
+
+const useStepSub4State = (mainKey, subKey, subsubKey, subsubsubKey) => {
+    const subState = useStepSub3State(mainKey, subKey, subsubKey)
+    if ((subState) && (subsubsubKey in subState)) {
+        return subState[subsubsubKey]
+    } else {
+        console.log(`StepReactRedux.${mainKey}.${subKey}.${subsubKey} not found.`)
+        return null
+    }
+}
+
+
 const useStepState = (key) => {
     if (typeof key != 'string') { throw Error("useStepState: Givin key must be string!") }
 
     if (key.includes('.')) {
-        const keySplitter = key.split('.', 2)
-        const mainKey = keySplitter[0]
-        const subKey = keySplitter[1]
-        return useStepSubState(mainKey, subKey)
+
+        const keySplitter = key.split('.')
+        const depth = keySplitter.length
+
+        switch (depth) {
+            case 2:
+                return useStepSub2State(
+                    keySplitter[0],
+                    keySplitter[1]
+                )
+
+            case 3:
+
+                return useStepSub3State(
+                    keySplitter[0],
+                    keySplitter[1],
+                    keySplitter[2]
+                )
+
+            case 4:
+
+                return useStepSub4State(
+                    keySplitter[0],
+                    keySplitter[1],
+                    keySplitter[2],
+                    keySplitter[3],
+                )
+
+
+            default:
+                console.warn(`StepReactRedux.${key} is deeper than 4.`)
+                return null
+        }
     } else {
         const store = useStore()
         const Step = store.getState()['Step']

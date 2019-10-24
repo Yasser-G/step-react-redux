@@ -1,6 +1,6 @@
 {
   "name": "step-react-redux",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "description": "Implement React-Redux into your app in just One Step!",
   "main": "index.tsx",
   "dependencies": {
