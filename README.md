@@ -10,6 +10,7 @@
 - No Persistance configuration needed, All data are persisted!
 - Very simple way to change store state, just like Component setState !
 - Simply connect your components with simpler connect function
+- Easily use hooks for your functional component, Dive deep in state up to 4 levels.
 - Built on redux, react-redux and redux-persist, No previous experience needed.
 
 
@@ -56,6 +57,7 @@ const myInitialState = { /* your initial state */ }
  Important Note: state will initialize for first time only,
  then you have to use xSetState or setStateForKey to change it,
  If you want to reinitialize state, you have to call xResetState once.
+ See xResetState below
 */
 
 ReactDOM.render(
@@ -80,6 +82,7 @@ const myInitialState = { /* your initial state */ }
  Important Note: state will initialize for first time only,
  then you have to use xSetState or setStateForKey to change it,
  If you want to reinitialize state, you have to call xResetState once.
+ See xResetState below
 */
 
 export default ()=> (
@@ -238,6 +241,64 @@ console.log(anotherValue) // => null
 
 // Remeber that You can use getStateForKey ANYWHERE!
 ```
+
+### **useStepState** (Hook)
+
+###### Usage
+ 
+```ts
+import React from "react"
+import { useStepState } from "step-react-redux"
+
+// Hooks Are used inside functional components
+
+const MyComponent = (props) => {
+
+	// Depth: 2 levels
+	const isLoggedIn = useStepState("user.loggedIn")
+	
+	// Depth: 3 levels
+	const userName = isLoggedIn ? useStepState("user.data.name") : "Guest"
+	
+	return (
+		<>
+		// Your Component goes here
+		<Text>Name: {userName}</Text>
+		</>
+	)
+	
+  
+}
+
+export default MyComponent
+
+```
+
+
+---
+
+### **xResetState** (Dev Only)
+
+###### Usage
+ 
+```ts
+import React from "react"
+import { xResetState } from "step-react-redux"
+
+/*
+Top level index in your code, call this method once during your develeopment process
+to allow you to reinitialize your state again from Provider initialState prop
+*/
+
+// Call this Once, Then Don't forget to remove it.
+
+xResetState()
+
+
+```
+
+
+
 
 
 
