@@ -44,20 +44,14 @@ const getStateForKey = (key: string) => {
         const Step = RootStore.getState()['Step']
         if (key in Step) {
             return Step[key]
-        } else {
-            console.log(`StepReactRedux.${key} not found.`)
-            return null
-        }
+        } else { return null }
     }
 }
 const getSubstateForKeys = (mainKey: string, subKey: string) => {
     const mainState = getStateForKey(mainKey)
     if ((mainState) && (subKey in mainState)) {
         return mainState[subKey]
-    } else {
-        console.log(`StepReactRedux.${mainKey}.${subKey} not found.`)
-        return null
-    }
+    } else { return null }
 }
 
 /**
