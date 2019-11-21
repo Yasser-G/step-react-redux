@@ -1,5 +1,6 @@
+<a href="https://www.buymeacoffee.com/lNI53PZ" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
 
-# Step-React-Redux 
+# Step React Redux 
 ![npm][npmDownloads] ![PRsBadge] ![npm][npmLicense] ![npm][npmVersion]
 
 ### Implement React-Redux into your app in just One Step!
@@ -232,11 +233,9 @@ console.log(userName) // => "Some Name"
 
 // getting state for unknown key will return null
 const someValue = getStateForKey("someKey") 
-// console logs => StepReactRedux.someKey not found.
 console.log(someValue) // => null
 
 const anotherValue = getStateForKey("anotherKey.subKey") 
-// console logs => StepReactRedux.anotherKey.subKey not found.
 console.log(anotherValue) // => null
 
 // Remeber that You can use getStateForKey ANYWHERE!
@@ -259,6 +258,8 @@ const MyComponent = (props) => {
 	
 	// Depth: 3 levels
 	const userName = isLoggedIn ? useStepState("user.data.name") : "Guest"
+	
+	// NOTE THAT DEPTH TREE SHOULD BE INITIALIZED BEFORE HOOKING IT
 	
 	return (
 		<>
