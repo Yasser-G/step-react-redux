@@ -4,30 +4,21 @@ const useStepSub2State = (mainKey, subKey) => {
     const mainState = useStepState(mainKey)
     if ((mainState) && (subKey in mainState)) {
         return mainState[subKey]
-    } else {
-        console.log(`StepReactRedux.${mainKey}.${subKey} not found.`)
-        return null
-    }
+    } else { return null }
 }
 
 const useStepSub3State = (mainKey, subKey, subsubKey) => {
     const subState = useStepSub2State(mainKey, subKey)
     if ((subState) && (subsubKey in subState)) {
         return subState[subsubKey]
-    } else {
-        console.log(`StepReactRedux.${mainKey}.${subKey}.${subsubKey} not found.`)
-        return null
-    }
+    } else { return null }
 }
 
 const useStepSub4State = (mainKey, subKey, subsubKey, subsubsubKey) => {
     const subState = useStepSub3State(mainKey, subKey, subsubKey)
     if ((subState) && (subsubsubKey in subState)) {
         return subState[subsubsubKey]
-    } else {
-        console.log(`StepReactRedux.${mainKey}.${subKey}.${subsubKey} not found.`)
-        return null
-    }
+    } else { return null }
 }
 
 
@@ -73,10 +64,7 @@ const useStepState = (key) => {
         const Step = store.getState()['Step']
         if (key in Step) {
             return useSelector(({ Step }) => Step[key])
-        } else {
-            console.log(`StepReactRedux.${key} not found.`)
-            return null
-        }
+        } else { return null }
     }
 }
 

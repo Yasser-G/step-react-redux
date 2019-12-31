@@ -1,5 +1,3 @@
-<a href="https://www.buymeacoffee.com/lNI53PZ" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
-
 # Step React Redux 
 ![npm][npmDownloads] ![PRsBadge] ![npm][npmLicense] ![npm][npmVersion]
 

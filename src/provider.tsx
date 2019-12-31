@@ -5,7 +5,6 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { xSetState, getStateForKey } from "./methods";
 
 const stateInitalizer = (initialState: object) => {
-    if (typeof initialState != 'object') { throw Error('initialState is Required') }
     const didInit = getStateForKey('didInit')
     if (!didInit) { xSetState({ ...initialState, didInit: true }) }
 }
