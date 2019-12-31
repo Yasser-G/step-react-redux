@@ -1,3 +1,11 @@
+# BREAKING CHANGE
+
+#### Now react-native users should use [React Native Redux][ReactNativeRedux] instead.
+---
+
+
+
+
 # Step React Redux 
 ![npm][npmDownloads] ![PRsBadge] ![npm][npmLicense] ![npm][npmVersion]
 
@@ -69,31 +77,6 @@ ReactDOM.render(
   rootElement
 )
 ```
-React Native
-```ts
-import React from "react"
-import { Provider } from "step-react-redux"
-import AppContainer from "../navigation" // Path to Root Navigation
-
-
-const myInitialState = { /* your initial state */ }
-/*
- Important Note: state will initialize for first time only,
- then you have to use xSetState or setStateForKey to change it,
- If you want to reinitialize state, you have to call xResetState once.
- See xResetState below
-*/
-
-export default ()=> (
-  <Provider 
-   initialState={myInitialState} 
-   loading={/* your loading UI*/}
-  >
-    <AppContainer />
-  </Provider>
-)
-```
-
 
 ---
 
@@ -300,7 +283,7 @@ xResetState()
 
 
 
-
+[ReactNativeRedux]: https://github.com/Yasser-G/react-native-redux
 [npmDownloads]: <https://img.shields.io/npm/dt/step-react-redux?label=Installs&logo=npm&style=plastic>
 [npmLicense]: <https://img.shields.io/npm/l/step-react-redux?label=License&style=plastic>
 [npmVersion]: <https://img.shields.io/npm/v/step-react-redux?label=Latest%20Version&style=plastic>
