@@ -1,71 +1,63 @@
-import { useSelector, useStore } from 'react-redux'
+import { useSelector } from 'react-redux';
 
-const useStepSub2State = (mainKey, subKey) => {
-    const mainState = useStepState(mainKey)
-    if ((mainState) && (subKey in mainState)) {
-        return mainState[subKey]
-    } else { return null }
-}
+const hookValue = (state: object, key: string) => {
 
-const useStepSub3State = (mainKey, subKey, subsubKey) => {
-    const subState = useStepSub2State(mainKey, subKey)
-    if ((subState) && (subsubKey in subState)) {
-        return subState[subsubKey]
-    } else { return null }
-}
+    if (!key.includes('.')) { if (key in state) { return state[key]; } else { return null; } }
 
-const useStepSub4State = (mainKey, subKey, subsubKey, subsubsubKey) => {
-    const subState = useStepSub3State(mainKey, subKey, subsubKey)
-    if ((subState) && (subsubsubKey in subState)) {
-        return subState[subsubsubKey]
-    } else { return null }
-}
+    const keySplitter = key.split('.');
+    const depth = keySplitter.length;
 
-
-const useStepState = (key) => {
-    if (typeof key != 'string') { throw Error("useStepState: Givin key must be string!") }
-
-    if (key.includes('.')) {
-
-        const keySplitter = key.split('.')
-        const depth = keySplitter.length
-
-        switch (depth) {
-            case 2:
-                return useStepSub2State(
-                    keySplitter[0],
-                    keySplitter[1]
-                )
-
-            case 3:
-
-                return useStepSub3State(
-                    keySplitter[0],
-                    keySplitter[1],
-                    keySplitter[2]
-                )
-
-            case 4:
-
-                return useStepSub4State(
-                    keySplitter[0],
-                    keySplitter[1],
-                    keySplitter[2],
-                    keySplitter[3],
-                )
-
-
-            default:
-                console.warn(`StepReactRedux.${key} is deeper than 4.`)
-                return null
-        }
-    } else {
-        const store = useStore()
-        const Step = store.getState()['Step']
-        if (key in Step) {
-            return useSelector(({ Step }) => Step[key])
-        } else { return null }
+    if (depth >= 6) {
+        console.warn(`StepReactRedux.${key} is deep for ${depth} levels which is deeper than what we currently support.
+        Pleaase Submit an issue with feature request showing your use case to support this depth`);
+        return null;
     }
-}
 
-export { useStepState }
+    switch (depth) {
+        case 2:
+            if ((
+                keySplitter[0] in state) &&
+                (keySplitter[1] in state[keySplitter[0]])
+            ) { return state[keySplitter[0]][keySplitter[1]]; }
+
+        case 3:
+            if (
+                (keySplitter[0] in state) &&
+                (keySplitter[1] in state[keySplitter[0]]) &&
+                (keySplitter[2] in state[keySplitter[0]][keySplitter[1]])
+            ) { return state[keySplitter[0]][keySplitter[1]][keySplitter[2]]; }
+
+        case 4:
+            if (
+                (keySplitter[0] in state) &&
+                (keySplitter[1] in state[keySplitter[0]]) &&
+                (keySplitter[2] in state[keySplitter[0]][keySplitter[1]]) &&
+                (keySplitter[3] in state[keySplitter[0]][keySplitter[1]][keySplitter[2]])
+            ) { return state[keySplitter[0]][keySplitter[1]][keySplitter[2]][keySplitter[3]]; }
+
+        case 5:
+            if (
+                (keySplitter[0] in state) &&
+                (keySplitter[1] in state[keySplitter[0]]) &&
+                (keySplitter[2] in state[keySplitter[0]][keySplitter[1]]) &&
+                (keySplitter[3] in state[keySplitter[0]][keySplitter[1]][keySplitter[2]]) &&
+                (keySplitter[4] in state[keySplitter[0]][keySplitter[1]][keySplitter[2]][keySplitter[3]])
+            ) { return state[keySplitter[0]][keySplitter[1]][keySplitter[2]][keySplitter[3]]; }
+
+        default:
+            console.warn(`StepReactRedux.${key} does not exist.\nMake Sure it is initialized before hooking it`);
+            return null;
+    }
+
+};
+
+const useStateX = (key: string) => {
+    if (typeof key !== 'string') { throw Error('useStepState: Givin key must be string!'); }
+    return useSelector(({ Step }) => hookValue(Step, key));
+};
+
+const useStepState = (key: string) => {
+    console.warn("useStepState is renamed to 'useStateX'");
+    return useStateX(key);
+};
+export { useStateX, useStepState };

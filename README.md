@@ -9,7 +9,7 @@
 # Step React Redux 
 ![npm][npmDownloads] ![PRsBadge] ![npm][npmLicense] ![npm][npmVersion]
 
-### Implement React-Redux into your app in just One Step!
+### Implement React-Redux into your react web app in just One Step!
 
 - No Store configuration needed!
 - No MiddleWares needed, no more dispatch complications.
@@ -17,7 +17,7 @@
 - No Persistance configuration needed, All data are persisted!
 - Very simple way to change store state, just like Component setState !
 - Simply connect your components with simpler connect function
-- Easily use hooks for your functional component, Dive deep in state up to 4 levels.
+- Easily use hooks for your functional component, Dive deep in state up to 5 levels.
 - Built on redux, react-redux and redux-persist, No previous experience needed.
 
 
@@ -48,7 +48,6 @@ initialState: object?
 loading: JSX.Element?
 ```
 ###### Usage
-React
 ```ts
 import React from "react"
 import ReactDOM from "react-dom"
@@ -222,23 +221,23 @@ console.log(anotherValue) // => null
 // Remeber that You can use getStateForKey ANYWHERE!
 ```
 
-### **useStepState** (Hook)
+### **useStateX** (Hook)
 
 ###### Usage
  
 ```ts
 import React from "react"
-import { useStepState } from "step-react-redux"
+import { useStateX } from "step-react-redux"
 
 // Hooks Are used inside functional components
 
 const MyComponent = (props) => {
 
 	// Depth: 2 levels
-	const isLoggedIn = useStepState("user.loggedIn")
+	const isLoggedIn = useStateX("user.loggedIn")
 	
 	// Depth: 3 levels
-	const userName = isLoggedIn ? useStepState("user.data.name") : "Guest"
+	const userName = isLoggedIn ? useStateX("user.data.name") : "Guest"
 	
 	// NOTE THAT DEPTH TREE SHOULD BE INITIALIZED BEFORE HOOKING IT
 	

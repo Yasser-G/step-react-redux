@@ -10,7 +10,7 @@ const stateInitalizer = (initialState: object) => {
 }
 
 /** 
- * Step-Ract-Redux Provider
+ * Step React Redux Provider
  * @example
  * const myInitialState = { 
  *    // initial state 
