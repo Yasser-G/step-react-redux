@@ -1,6 +1,6 @@
 # BREAKING CHANGE
 
-#### Now react-native users should use [React Native Redux][StepReactRedux] instead.
+#### Now react-native users should use [React Native Redux][ReactNativeRedux] instead.
 ---
 
 
