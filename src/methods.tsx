@@ -1,5 +1,6 @@
 import { connect as connectX } from 'react-redux';
 import { RootStore } from './config';
+import { valueExtractor } from './depth';
 
 const errors = {
     xSetState: 'Provided state is not an object',
@@ -7,20 +8,22 @@ const errors = {
     connectWrapped: 'WrappedComponent is required',
     requiredKeysArray: 'required keys is not an Array',
     requiredKeysStrings: 'all required keys should be strings',
-    requiredKeyNF: (key: string) => `required key "${key}" not found`,
 };
 
 /**
  * Reset State - Clears stored state tree.
  */
-const xResetState = () => setStateForKey(null, 'xResetState');
+const xResetState = () => setStateForKey('xResetState', null);
 /**
  * X Set State
  * @param {object} state
  */
 const xSetState = (state: object) => {
-    if (typeof state !== 'object') { throw Error(errors.xSetState); }
-    for (const key in state) { setStateForKey(state[key], key); }
+    if (typeof state !== 'object') {
+        console.warn(errors.xSetState);
+        return;
+    }
+    for (const key in state) { setStateForKey(key, state[key]); }
 };
 
 /**
@@ -34,30 +37,18 @@ const xSetState = (state: object) => {
     * @param {string} key Key for required state
  */
 const getStateForKey = (key: string) => {
-    if (typeof key !== 'string') { throw Error(errors.getStateForKey); }
-    if (key.includes('.')) {
-        const keySplitter = key.split('.', 2);
-        const mainKey = keySplitter[0];
-        const subKey = keySplitter[1];
-        return getSubstateForKeys(mainKey, subKey);
-    } else {
-        const Step = RootStore.getState().Step;
-        if (key in Step) {
-            return Step[key];
-        } else { return null; }
+    if (typeof key !== 'string') {
+        console.warn(errors.getStateForKey);
+        return null;
     }
-};
-const getSubstateForKeys = (mainKey: string, subKey: string) => {
-    const mainState = getStateForKey(mainKey);
-    if ((mainState) && (subKey in mainState)) {
-        return mainState[subKey];
-    } else { return null; }
+    const { Step } = RootStore.getState();
+    return valueExtractor(Step, key);
 };
 
 /**
  * Similar to xSetState, plus it can be used to set deep state
  */
-const setStateForKey = (state: any, key: string) => {
+const setStateForKey = (key: string, state: any) => {
     RootStore.dispatch({ type: key, payload: state });
 };
 
@@ -66,7 +57,11 @@ const setStateForKey = (state: any, key: string) => {
  * @param WrappedComponent Class Component
  * @param {Array<string>} requiredKeys Array Of required keys to be connected.
  */
-const connect = (WrappedComponent, requiredKeys: Array<string> = []) => {
+const connect = (
+    WrappedComponent,
+    requiredKeys: Array<string> = [],
+    deepKeyReplacer: string = '_'
+) => {
 
     if (typeof WrappedComponent === 'undefined') { throw Error(errors.connectWrapped); }
 
@@ -83,15 +78,14 @@ const connect = (WrappedComponent, requiredKeys: Array<string> = []) => {
         const propsToConnect = {};
         if (requiredKeys.length === 0) {
             for (const key in Step) {
-                if (key === 'didInit') { return; }
-                propsToConnect[key] = Step[key];
+                if (key !== 'didInit') { propsToConnect[key] = Step[key]; }
             }
             return propsToConnect;
         }
         for (const key of requiredKeys) {
-            if (key in Step) { propsToConnect[key] = Step[key]; } else {
-                throw Error(errorTemplate(errors.requiredKeyNF(key)));
-            }
+            const isDeepKey = key.includes('.');
+            const propKey = isDeepKey ? key.split('.').join(deepKeyReplacer) : key;
+            propsToConnect[propKey] = valueExtractor(Step, key);
         }
         return propsToConnect;
     };
