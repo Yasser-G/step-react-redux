@@ -1,6 +1,6 @@
 # BREAKING CHANGE
 
-#### Now react-native users should use [React Native Redux][ReactNativeRedux] instead.
+#### Now react-native users should use [React Native Redux][StepReactRedux] instead.
 ---
 
 
@@ -106,6 +106,18 @@ export default connect(UserPage)
 */ 
 
 export default connect(UserPage, ["user", "someKey", "anotherKey"])
+
+
+// You can also connect to deep state ( Up to 5 levels ) using dotted key. 
+export default connect(UserPage, ["user.name"])
+// a prop with key "user_name" will be connected
+
+// You can change deepKeyReplacer as a third optional argument
+export default connect(UserPage, ["user.name"], "-")
+// a prop with key "user-name" will be connected
+
+
+
 ```
 
 
@@ -169,7 +181,7 @@ state: object
 import { setStateForKey } from "step-react-redux"
 
 // Similar to xSetState
-// plus it can be used to set deep state
+// plus it can be used to set deep state up to 3 levels
 
 setStateForKey("user", { id: 1, name: "Some Name" })
 
@@ -181,8 +193,6 @@ setStateForKey("user", { id: 1, name: "Some Name" })
 setStateForKey("user.name", "New Name" )
 
 // console logs => StepReactRedux.user.name, "New Name"
-
-setStateForKey("user.name", "New Name" )
 
 // Remeber that You can use setStateForKey ANYWHERE!
 ```
@@ -223,6 +233,7 @@ console.log(anotherValue) // => null
 
 ### **useStateX** (Hook)
 
+##### You may like to try our new set of hooks [React Stateful Function][ReactStatefulFunction].
 ###### Usage
  
 ```ts
@@ -282,6 +293,7 @@ xResetState()
 
 
 
+[ReactStatefulFunction]: https://github.com/Yasser-G/React-Stateful-Function
 [ReactNativeRedux]: https://github.com/Yasser-G/react-native-redux
 [npmDownloads]: <https://img.shields.io/npm/dt/step-react-redux?label=Installs&logo=npm&style=plastic>
 [npmLicense]: <https://img.shields.io/npm/l/step-react-redux?label=License&style=plastic>
