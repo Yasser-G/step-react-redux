@@ -18,7 +18,7 @@ const xResetState = () => setStateForKey('xResetState', null);
  * X Set State
  * @param {object} state
  */
-const xSetState = (state: object) => {
+const xSetState = (state) => {
     if (typeof state !== 'object') {
         console.warn(errors.xSetState);
         return;
@@ -36,7 +36,7 @@ const xSetState = (state: object) => {
     * const userName = getStateForKey('userData.name')
     * @param {string} key Key for required state
  */
-const getStateForKey = (key: string) => {
+const getStateForKey = (key) => {
     if (typeof key !== 'string') {
         console.warn(errors.getStateForKey);
         return null;
@@ -48,7 +48,7 @@ const getStateForKey = (key: string) => {
 /**
  * Similar to xSetState, plus it can be used to set deep state
  */
-const setStateForKey = (key: string, state: any) => {
+const setStateForKey = (key, state) => {
     RootStore.dispatch({ type: key, payload: state });
 };
 
@@ -59,13 +59,13 @@ const setStateForKey = (key: string, state: any) => {
  */
 const connect = (
     WrappedComponent,
-    requiredKeys: Array<string> = [],
-    deepKeyReplacer: string = '_'
+    requiredKeys = [],
+    deepKeyReplacer = '_'
 ) => {
 
     if (typeof WrappedComponent === 'undefined') { throw Error(errors.connectWrapped); }
 
-    const errorTemplate = (reason: string) =>
+    const errorTemplate = (reason) =>
         `StepReactRedux.connect\nFailed to connect "${WrappedComponent.name}"\nReason: ${reason}`;
 
     if (!Array.isArray(requiredKeys)) { throw Error(errorTemplate(errors.requiredKeysArray)); }

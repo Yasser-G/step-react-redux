@@ -1,7 +1,7 @@
-const stateSetter = (state: object, key: string, payload: object) => {
+const stateSetter = (state, key, payload) => {
 
     if (key.includes('/')) { return state; }
-    if (key === 'xResetState') { return {}; } 
+    if (key === 'xResetState') { return {}; }
 
     const keySplitter = key.split('.');
     const depth = keySplitter.length;

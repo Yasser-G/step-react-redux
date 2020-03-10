@@ -4,7 +4,7 @@ import { RootStore, AppPersistor } from './config';
 import { PersistGate } from 'redux-persist/integration/react';
 import { xSetState, getStateForKey } from './methods';
 
-const stateInitalizer = (initialState: object) => {
+const stateInitalizer = (initialState) => {
     const didInit = getStateForKey('didInit');
     if (!didInit) { xSetState({ ...initialState, didInit: true }); }
 };
@@ -32,12 +32,11 @@ export const Provider = ({
 }) => {
     stateInitalizer(initialState);
     return (
-        <ProviderX store={RootStore}>
-            <PersistGate
-                persistor={AppPersistor}
-                loading={loading}
-                children={children}
-            />
-        </ProviderX>
+        React.createElement(ProviderX, { store: RootStore },
+            React.createElement(PersistGate, {
+                persistor: AppPersistor,
+                loading: loading,
+                children: children
+            }))
     );
 };

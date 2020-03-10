@@ -1,4 +1,4 @@
-const valueExtractor = (state: object, key: string) => {
+const valueExtractor = (state, key) => {
 
     const keySplitter = key.split('.');
     const depth = keySplitter.length;
