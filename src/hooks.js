@@ -1,13 +1,16 @@
 import { useSelector } from 'react-redux';
 import { valueExtractor } from "./depth"
 
-const useStateX = (key) => {
+const useStateX = (key, fallback = null) => {
     if (typeof key !== 'string') { throw Error('useStepState: Givin key must be string!'); }
-    return useSelector(({ RN }) => valueExtractor(RN, key));
+    return useSelector(({ Step }) => {
+        const value = valueExtractor(Step, key)
+        return value || fallback;
+    });
 };
 
-const useStepState = (key) => {
+const useStepState = (key, fallback = null) => {
     console.warn("useStepState was renamed to 'useStateX'");
-    return useStateX(key);
+    return useStateX(key, fallback);
 };
 export { useStateX, useStepState };

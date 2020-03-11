@@ -19,7 +19,6 @@ const stateSetter = (state, key, payload) => {
             return { ...state, [key]: payload }
 
         case 2:
-            logSuccess()
             if ((keySplitter[0] in state)) {
                 logSuccess()
                 return {
